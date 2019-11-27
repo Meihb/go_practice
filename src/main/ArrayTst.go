@@ -21,6 +21,7 @@ func main() {
 	var r [3]int = [3]int{1, 2}
 	fmt.Println(r[2]) // "0"
 
+	//这个地方不使用简短模式好像不行,或者说认为...这个只能作为类型推导？
 	q := [...]int{1, 2, 3}
 	fmt.Printf("%T\n", q) // "[3]int"
 
