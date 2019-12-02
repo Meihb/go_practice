@@ -1,0 +1,53 @@
+/*
+Go语言中传入与返回参数在调用和返回时都使用值传递，这里需要注意的是指针、切片和 map 等引用型对象在参数传递中不会发生复制，
+而是将指针进行复制，类似于创建一次引用。
+*/
+package main
+
+import "fmt"
+
+// 用于测试值传递效果的结构体
+type Data struct {
+	complax  []int      //测试切片在参数传递的效果
+	instance InnerData  //实例分配
+	ptr      *InnerData //指针类型
+}
+
+// 代表各种结构体字段
+type InnerData struct {
+	a int //
+}
+
+// 值传递测试函数
+func passByValue(inFunc Data) Data {
+	//输出参数的成员情况
+	fmt.Printf("inFunc:%+v\n", inFunc)
+	//打印指针
+	fmt.Printf("inFunc ptr:%p\n", &inFunc)
+
+	return inFunc
+}
+
+func main() {
+
+	// 准备传入函数的结构
+	in := Data{
+		complax: []int{1, 2, 3},
+		instance: InnerData{
+			a: 3,
+		},
+		ptr: &InnerData{
+			a: 4,
+		},
+	}
+	// 输入结构的成员情况
+	fmt.Printf("in value:%+v\n", in)
+	// 输入结构的指针地址
+	fmt.Printf("in ptr:%p\n", &in)
+	// 传入结构体，返回同类型的结构体
+	out := passByValue(in)
+	// 输出结构的成员情况
+	fmt.Printf("in value:%+v\n", out)
+	// 输出结构的指针地址
+	fmt.Printf("in ptr:%p\n", &out)
+}
