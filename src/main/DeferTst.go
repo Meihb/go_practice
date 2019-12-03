@@ -51,6 +51,8 @@ func doSth2() (rev int) {
 	return 5
 }
 
+
+
 /*
 捕获异常
 */
@@ -68,6 +70,6 @@ func doSth3() {
 func main() {
 	doSomething1()
 	fmt.Println(doSth2())
-	
+
 	doSth3()
 }
