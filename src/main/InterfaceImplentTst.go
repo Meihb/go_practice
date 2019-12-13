@@ -18,7 +18,7 @@ type Invoker interface {
 type Struct struct {
 }
 
-//实现Invoker的Call
+//实现Invoker的Call s *Struct 为 receiver
 func (s *Struct) Call(p interface{}) {
 	fmt.Println("from struct", p)
 }
