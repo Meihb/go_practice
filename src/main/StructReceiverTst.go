@@ -53,10 +53,10 @@ func (v Vec2) sub(other Vec2) Vec2 {
 }
 
 //乘
-func (v Vec2) scale(other Vec2) Vec2 {
+func (v Vec2) scale(s float32) Vec2 {
 	return Vec2{
-		X: v.X * other.X,
-		Y: v.Y * other.Y,
+		X: v.X * s,
+		Y: v.Y * s,
 	}
 }
 
@@ -90,6 +90,38 @@ type Player struct {
 	speed     float32 //移动速度
 }
 
+//获取玩家当前位置
+func (p *Player) Pos() Vec2 {
+	return p.currPos
+}
+
+//是否到达
+func (p *Player) IsArrived() bool {
+	//如果当前玩家为之与目标位置的距离不超过移动的步长,则认之为已到达目标
+	return p.currPos.Distance(p.targetPos) < p.speed
+}
+
+//逻辑更新
+func (p *Player) Update() {
+	if !p.IsArrived() {
+		//计算当前位置指向目标的朝向
+		dir := p.targetPos.sub(p.currPos).Normalize()
+
+		p.currPos = p.currPos.add(dir.scale(p.speed))
+	}
+}
+
+// 移动到某个点就是设置目标位置
+func (p *Player) MoveTo(v Vec2) {
+	p.targetPos = v
+}
+func NewPlayer(speed float32) *Player {
+	return &Player{
+		currPos:   Vec2{},
+		targetPos: Vec2{},
+		speed:     speed,
+	}
+}
 func main() {
 	bag := &Bag{}
 	InsertProcedureOriented(bag, 12)
@@ -97,4 +129,15 @@ func main() {
 	bag.InsertObjectOriented(23)
 	fmt.Println(bag)
 
+	// 实例化玩家对象，并设速度为0.5
+	p := NewPlayer(0.5)
+	// 让玩家移动到3,1点
+	p.MoveTo(Vec2{3, 1})
+	// 如果没有到达就一直循环
+	for !p.IsArrived() {
+		// 更新玩家位置
+		p.Update()
+		// 打印每次移动后的玩家位置
+		fmt.Println(p.Pos())
+	}
 }
