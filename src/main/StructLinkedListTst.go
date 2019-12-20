@@ -14,16 +14,38 @@ func ShowNode(p *Node) {
 	}
 }
 
-func main()  {
-	var head =new(Node)
-	head.Data = 1
-	var node1 = new(Node)
-	node1.Data=2
-	head.Next=node1
+func main() {
+	var head = new(Node)
+	head.Data = 0
+	var tail *Node //tail用于记录头结点的地址，刚开始tail的的指针指向头结点
+	tail = head
 
-	var node2 =new(Node)
-	node2.Data = 3
-	node1.Next=node2
+	/*
+		插入节点 头插法和尾插法
+	*/
+	//头插法
+	for i := 1; i < 10; i++ {
+		var node = Node{
+			Data: i,
+			Next: nil,
+		}
+		node.Next = tail
+		tail = &node
+	}
 
-	ShowNode(head)
+	ShowNode(tail)
+
+	var head1 = new(Node)
+	head1.Data = 0
+	tail = head1 //tail指向尾部节点的地址
+	//尾插法
+	for i := 1; i < 10; i++ {
+		node := Node{
+			Data: i,
+			Next: nil,
+		}
+		tail.Next = &node
+		tail = &node
+	}
+	ShowNode(head1)
 }
