@@ -32,32 +32,68 @@ w = new(ByteCounter)
 rw = w.(io.ReadWriter) // 死机：*字节计数器没有读取方法
 */
 
-
 // 定义飞行动物接口
 type Flyer interface {
 	Fly()
 }
+
 // 定义行走动物接口
 type Walker interface {
 	Walk()
 }
+
 // 定义鸟类
 type bird struct {
 }
+
 // 实现飞行动物接口
 func (b *bird) Fly() {
 	fmt.Println("bird: fly")
 }
+
 // 为鸟添加Walk()方法, 实现行走动物接口
 func (b *bird) Walk() {
 	fmt.Println("bird: walk")
 }
+
 // 定义猪
 type pig struct {
 }
+
 // 为猪添加Walk()方法, 实现行走动物接口
 func (p *pig) Walk() {
 	fmt.Println("pig: walk")
+}
+
+//现金支付和alipay的例子
+type ContainStolen interface {
+	Stolen()
+}
+type ContainCanUseFaceID interface {
+	UseFaceID()
+}
+type AliPay struct {
+}
+
+func (a *AliPay) UseFaceID() {
+}
+
+type CashPay struct {
+}
+
+func (c *CashPay) Stolen() {
+
+}
+
+func print(i interface{}) {
+	switch i.(type) {
+	case ContainCanUseFaceID:
+		fmt.Printf("%T can use faceid\n", i)
+	case ContainStolen:
+		fmt.Printf("%T may be stolen\n", i)
+	default:
+		fmt.Println("nothing special")
+	}
 }
 
 func main() {
@@ -74,11 +110,11 @@ func main() {
 	fmt.Println(rw1)
 	rw1.Read([]byte{1, 2, 3}) //w1无法使用read方法,看出来了吗,通过断言可以更改方法集
 	/*
-	接口类型和接口 ,就是让面w1 和io.Writer的关系,接口类型可能实现了其他接口的方法,但是其本身只能显示
-	调用此接口的方法集
-	一个变量,其本身可能实现了多个方法,当其被赋值给了一个 接口,就变成了一个接口类型,其本身不在此接口的方法集就不能显示调用了
-	但是通过断言,可以实现方法集的变化(通过断言assertion的第一个返回值)
-	 */
+		接口类型和接口 ,就是让面w1 和io.Writer的关系,接口类型可能实现了其他接口的方法,但是其本身只能显示
+		调用此接口的方法集
+		一个变量,其本身可能实现了多个方法,当其被赋值给了一个 接口,就变成了一个接口类型,其本身不在此接口的方法集就不能显示调用了
+		但是通过断言,可以实现方法集的变化(通过断言assertion的第一个返回值)
+	*/
 	//w1 = new(ByteCounter) 编译报错
 	//rw1 = w1.(io.ReadWriter) // 死机：*字节计数器没有读取方法
 
@@ -105,7 +141,13 @@ func main() {
 	}
 
 	p1 := new(pig)
-	var a Walker = p1//a是接口类型,因此只能支持Walker的方法集
-	p2 := a.(*pig)//通过断言,p2解放了其他方法的权限,但其实指针指向是一样的
+	var a Walker = p1 //a是接口类型,因此只能支持Walker的方法集
+	p2 := a.(*pig)    //通过断言,p2解放了其他方法的权限,但其实指针指向是一样的
 	fmt.Printf("p1=%p p2=%p", p1, p2)
+
+	//支付特点
+	print(new(AliPay))
+	print(new(CashPay))
+
+	print(CashPay{})//哦豁,记得指针结构体的实现不能代表结构体的实现
 }
