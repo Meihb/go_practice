@@ -1,8 +1,10 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
+
+/*
+用tortoisegit 请先设置network-ssh client - ssh.exe
+ */
 
 /*
 变量申明
