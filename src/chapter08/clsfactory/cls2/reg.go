@@ -1,11 +1,14 @@
 package cls2
+
 import (
 	"chapter08/clsfactory/base"
 	"fmt"
 )
+
 // 定义类2
 type Class2 struct {
 }
+
 // 实现Class接口
 func (c *Class2) Do() {
 	fmt.Println("Class2")

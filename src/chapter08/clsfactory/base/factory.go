@@ -8,7 +8,7 @@ var (
 	factoryByName = make(map[string]func() Class)
 )
 // 注册一个类生成工厂
-func Register(name string, factory func() Class) {
+func Register(name string, factory func() Class) {//哇,其实是一个返回Class的func 想错了 go的函数签名,我这个phper还适应的不太行
 	factoryByName[name] = factory
 }
 // 根据名称创建对应的类
