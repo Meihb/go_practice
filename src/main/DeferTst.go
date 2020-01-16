@@ -40,6 +40,10 @@ defer 读写命名的返回值
 所以这里其实和doSomething1函数一样,其实就是读了外部变量而已
 
 多个defer,后进先出
+你有想过为什么defer 是先进后出吗
+suppose 场景下由上而下 每次开一个句柄基本都习惯加一个defer ,这些句柄本身可能有继承性质,
+u can`t just close from top.right?
+stack!
 */
 func doSth2() (rev int) {
 	defer func() {
