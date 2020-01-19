@@ -37,6 +37,7 @@ func main() {
 			continue
 		case "nothing", "bye":
 			fmt.Println("Bye!")
+			fmt.Println("hello")
 			// 正常退出。
 			os.Exit(0)
 		default:
