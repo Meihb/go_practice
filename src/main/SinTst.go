@@ -34,7 +34,7 @@ func main() {
 	//    ./是你当前的工程目录，并不是该go文件所对应的目录。
 	//    比如myProject/src/main/main.go
 	//    main.go里使用./,其路径不是myProject/src/main/，而是myProject/
-	file, err := os.Create("bin//sin.png")
+	file, err := os.Create("pkg//sin.png")
 	if err != nil {
 		log.Fatal(err)
 	}

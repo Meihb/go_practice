@@ -3,20 +3,25 @@ package main
 import "fmt"
 
 func main() {
-	var a [3]int
+	var a [3]int = [3]int{1, 2, 3} //居然初始化的时候不可以跨行,这一点要注意,go好多这个要点
 
 	//切片运算,左闭右开
 	/*
-		从数组或切片生成新的切片拥有如下特性：
-		取出的元素数量为：结束位置 - 开始位置；
-		取出元素不包含结束位置对应的索引，切片最后一个元素使用 slice[len(slice)] 获取；
-		当缺省开始位置时，表示从连续区域开头到结束位置；
-		当缺省结束位置时，表示从开始位置到整个连续区域末尾；
-		两者同时缺省时，与切片本身等效；
-		两者同时为 0 时，等效于空切片，一般用于切片复位。
+			从数组或切片生成新的切片拥有如下特性：
+			取出的元素数量为：结束位置 - 开始位置；
+			取出元素不包含结束位置对应的索引，切片最后一个元素使用 slice[len(slice)] 获取；
+			当缺省开始位置时，表示从连续区域开头到结束位置；
+			当缺省结束位置时，表示从开始位置到整个连续区域末尾；
+			两者同时缺省时，与切片本身等效；
+			两者同时为 0 时，等效于空切片，一般用于切片复位。
+
+		要注意结束为止缺省时和len-1是不同的,缺少了连续内存的最后一个索引
 	*/
 	fmt.Println(a, a[1:2])
 	fmt.Println(a, a[1:1]) //空切片
+	fmt.Println(a, a[1:])
+	fmt.Println(a, a[:2])
+	fmt.Println(a, a[:])
 	//fmt.Println(a,a[1:0]); must be low <=high
 
 	/*
@@ -25,9 +30,9 @@ func main() {
 		没有Number并且不指定为...则为切片,宣告了其自动扩展性
 	*/
 	fmt.Println("declare slice:")
-	var strList []string //声明字符串切片
-	var numList []int    //整型切片
-	var numListEmpty  = []int{}
+	var strList []string       //声明字符串切片
+	var numList []int          //整型切片
+	var numListEmpty = []int{} //!=nil 为什么呢,因为其已经被分配了内存,只是没有元素罢了,上面两个都没有被分配内存
 	numArr := [...]int{}
 	//输出三个切片
 	fmt.Println(strList, numList, numListEmpty, numArr)
@@ -74,9 +79,11 @@ func main() {
 	aa1 = append(aa1[:i], append([]int{4, 5}, aa1[i:]...)...)
 
 	/*
-	切片复制 copy
-	copy( destSlice, srcSlice []T) int
-	 */
+			切片复制 copy
+			copy( destSlice, srcSlice []T) int
+		其中 srcSlice 为数据来源切片，destSlice 为复制的目标（也就是将 srcSlice 复制到 destSlice），
+		目标切片必须分配过空间且足够承载复制的元素个数，并且来源和目标的类型必须一致，copy() 函数的返回值表示实际发生复制的元素个数
+	*/
 	// 设置元素数量为1000
 	const elementCount = 1000
 	// 预分配足够多的元素切片

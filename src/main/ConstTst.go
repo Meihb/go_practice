@@ -13,11 +13,10 @@ private）。
 */
 const (
 	ca = 1
-	cb
+	cb = 3
 	cc = 2
 	cd
 )
-
 type Weekday int
 
 /*
@@ -35,6 +34,6 @@ const (
 )
 
 func main() {
-	fmt.Println(a, b, c, d);
+	//fmt.Println(ca, cb, cc, cd);
 	fmt.Println(Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday);
 }

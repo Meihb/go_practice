@@ -43,7 +43,7 @@ func (b Brand) show() {
 type FakeBrand = Brand
 
 //定义车辆结构，这是默认同名吗？
-//难道别名的意义就着？配合次语法省略代码吗
+//难道别名的意义就着？配合此语法省略代码吗
 type Vehicle struct {
 	//嵌入两个结构
 	fb    FakeBrand
@@ -61,13 +61,19 @@ func main() {
 	var a2 intAlias
 	fmt.Printf("a2 type:%T\n", a2)
 
-	var vehicle Vehicle
+	var vehicle Vehicle = Vehicle{
+		fb:        FakeBrand{},
+		brand:     Brand{},
+		FakeBrand: FakeBrand{},
+		Brand:     Brand{},
+	}
 	//指定调用FakeBrand的show方法
 	vehicle.fb.show()
 	vehicle.FakeBrand.show()
 	//指定调用Brand的show方法
 	vehicle.brand.show()
 	vehicle.Brand.show()
+	//vehicle.show()  ambiguous selector vehicle.show 这个同样证明了Fakebrand就是Brand,因为其成员都具有show,所以会ambiguous
 	//取vehicle的类型反射对象
 	ta := reflect.TypeOf(vehicle)
 
