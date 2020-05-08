@@ -28,13 +28,11 @@ func main() {
 
 
 	因為初始化的 map 會是 nil map，不像其他的 primitive type 一樣有預設值。
-		var mapPointer = new(map[string][ ]int)
-		mapPointerObj := *mapPointer
-		fmt.Printf("type:%T",mapPointerObj)
-		mapPointerObj["one"] = [ ]int{0, 1, 2}
-		mapPointerObj["two"] = [ ]int{3, 4, 5}
-		mapPointerObj["three"] = [ ]int{6, 7, 8}
-		fmt.Println(mapPointerObj)
+	你对于一个nil执行*寻址操作,自然会Panic
+	    people := new(map[string]string)
+	    p := *people
+	    p["name"] = "Kalan" // panic: assignment to entry in nil map
+
 
 
 
@@ -50,6 +48,14 @@ func main() {
 		}
 		好處是上面的 Person 也可以根據自己想要傳入的值額外再做設定，但 new 則是全部的 field 都會直接塞 zeroed value。
 	*/
+
+	var mapPointer = new(map[string][ ]int)
+	mapPointerObj := *mapPointer
+	fmt.Printf("type:%T",mapPointerObj)
+	//mapPointerObj["one"] = [ ]int{0, 1, 2}
+	//mapPointerObj["two"] = [ ]int{3, 4, 5}
+	//mapPointerObj["three"] = [ ]int{6, 7, 8}
+	//fmt.Println(mapPointerObj)
 	scene := make(map[string]int)
 	// 准备map数据
 	scene["route"] = 66
@@ -58,7 +64,7 @@ func main() {
 	// 声明一个切片保存map数据
 	var sceneList []string
 	// 将map数据遍历复制到切片中
-	for k := range scene {
+	for k := range scene {//只访问key时可以不考虑value的匿名变量
 		sceneList = append(sceneList, k)
 	}
 	// 对切片进行排序

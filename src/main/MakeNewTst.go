@@ -13,13 +13,13 @@ func main() {
 	fmt.Println(s)
 
 	/*
-			var 或者简短模式的申明,其操作是创建内存,如果有初试值则赋值否则进行zerod 即零值化(0、0.0、nil等)
-			new 分配内存,返回指针
-			make 仅作用域channel、map、slice,分配内存后返回的即是类型本身而非指针类型,因为前三个类型都是引用类型
+		var 或者简短模式的申明,其操作是创建内存,如果有初试值则赋值否则进行zerod 即零值化(0、0.0、nil等)
+		new 分配内存,返回指针
+		make 仅作用于channel、map、slice,分配内存后返回的即是类型本身而非指针类型,因为前三个类型都是引用类型
 
-			make 只能用来分配及初始化类型为 slice、map、chan 的数据。new 可以分配任意类型的数据；
-			new 分配返回的是指针，即类型 *Type。make 返回引用，即 Type；
-			new 分配的空间被清零。make 分配空间后，会进行初始化；
+		make 只能用来分配及初始化类型为 slice、map、chanel 的数据。new 可以分配任意类型的数据；
+		new 分配返回的是指针，即类型 *Type。make 返回引用，即 Type；
+		new 分配的空间被清零。make 分配空间后，会进行初始化；
 	*/
 
 	var i int;
@@ -40,4 +40,25 @@ func main() {
 	*p = 2
 	fmt.Printf("p address:%p,p pointer:%p,p value:%d\n", &p, p, *p)
 
+	type makeP struct {
+		name string
+		id   int
+	}
+	var mp makeP
+	mp.name = "12"
+	fmt.Println(mp)
+
+	mp2 := new(makeP)
+	(*mp2).name = "22"
+	fmt.Println(*mp2)
+
+	//people := new(map[string]string)
+	//*people["name"]="112"
+	//p22 := *people
+	//p22["name"] = "Kalan" // panic: assignment to entry in nil map
+
+	var ma *(*makeP)
+	ma = new(*makeP)
+	*ma = &makeP{};
+	fmt.Println(*ma)
 }
