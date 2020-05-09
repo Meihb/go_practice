@@ -32,6 +32,16 @@ func (f FuncCaller) Call(p interface{}) {
 	f(p)
 }
 
+func FuncCaller2(interface{}) {
+
+}
+//函数的声明不能直接实现接口，需要将函数定义为类型后，使用类型实现结构体，当类型方法被调用时，还需要调用函数本体。
+// 所以这里是区别,interface method 必须是type类型才能,单独设置一个func是不可以的,必须是type定义一下
+//func (f FuncCaller2 ) Call(p interface{}) {
+//	f(p)
+//}
+type FuncCalle3 func(interface{})
+
 func main() {
 	//声明接口变量
 	var invoker Invoker

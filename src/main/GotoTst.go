@@ -20,6 +20,8 @@ func main() {
 	//手动返回 ,避免执行goto标签,
 	return
 
+//breakHere2:
+//	fmt.Println("not done")
 	//label,跳转之后即离开之前的循环区域了
 	//另外此标签如果之前的代码不退出的话是会被执行的
 breakHere:
