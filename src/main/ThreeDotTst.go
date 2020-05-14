@@ -12,13 +12,13 @@ func test1(args ...string) { //可以接受任意个string参数
 }
 func main() {
 	var strss = []string{
-		"qwr",
-		"234",
-		"yui",
-		"cvbc",
+		"1",
+		"2",
+		"3",
+		"4",
 	}
-	test1(strss...) //切片被打散传入
-
+	test1(strss...) //切片被打散传入 在传参后面加入...,和函数定义时传参...正好相反的一对,两者功能一样,实在无须一起使用
+	test1("1","2","3","4")//
 
 	var strss1= []string{
 		"qwr",
@@ -33,5 +33,5 @@ func main() {
 		"zzz",
 	}
 	strss=append(strss1,strss2...) //strss2的元素被打散一个个append进strss
-	fmt.Println(strss1)
+	fmt.Println(strss)
 }

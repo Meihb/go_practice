@@ -34,7 +34,7 @@ type GameService struct {
 	Logger // 嵌入日志器
 }
 
-// 实现Service的Start()方法
+// 实现Service的Start()方法 receiver在此处是GGameService,因此GameService并没有implent了Service,而是*GameService实现
 func (g *GameService) Start() {
 }
 
@@ -54,17 +54,17 @@ func main() {
 	s.Log("hello")
 
 	/*
-		接口断言 Type Assertion 是一个使用在接口值上的操作，用于检查接口类型变量所持有的值是否实现了期望的接口或
-		者具体的类型。
+			接口断言 Type Assertion 是一个使用在接口值上的操作，用于检查接口类型变量所持有的值是否实现了期望的接口或
+			者具体的类型。
 
-	其中，x 表示一个接口的类型，T 表示一个具体的类型（也可为接口类型）。
+		其中，x 表示一个接口的类型，T 表示一个具体的类型（也可为接口类型）。
 
-	该断言表达式会返回 x 的值（也就是 value）和一个布尔值（也就是 ok），可根据该布尔值判断 x 是否为 T 类型：
-	如果 T 是具体某个类型，类型断言会检查 x 的动态类型是否等于具体类型 T。如果检查成功，类型断言返回的结果是 x
-	的动态值，其类型是 T。
-	如果 T 是接口类型，类型断言会检查 x 的动态类型是否满足 T。如果检查成功，x 的动态值不会被提取，返回值是一个
-	类型为 T 的接口值。
-	无论 T 是什么类型，如果 x 是 nil 接口值，类型断言都会失败。
+		该断言表达式会返回 x 的值（也就是 value）和一个布尔值（也就是 ok），可根据该布尔值判断 x 是否为 T 类型：
+		如果 T 是具体某个类型，类型断言会检查 x 的动态类型是否等于具体类型 T。如果检查成功，类型断言返回的结果是 x
+		的动态值，其类型是 T。
+		如果 T 是接口类型，类型断言会检查 x 的动态类型是否满足 T。如果检查成功，x 的动态值不会被提取，返回值是一个
+		类型为 T 的接口值。
+		无论 T 是什么类型，如果 x 是 nil 接口值，类型断言都会失败。
 
 	*/
 	var x interface{}
@@ -72,9 +72,15 @@ func main() {
 	value, ok := x.(int)
 	fmt.Println(value, ",", ok)
 
-	value1,ok1 := s.(Service)
+	value1, ok1 := s.(Service)
 	fmt.Println(value1, ",", ok1)
+	fmt.Printf("type:%T,addr:%p\n", s,s)//type:*main.GameService,addr:0x597c18
+	fmt.Printf("type:%T,addr:%p\n", value1,value1)//type:*main.GameService,addr:0x597c18
 
+
+	//var service Service;
+	//gs := GameService{Logger{}};
+	//service = gs
 
 	var a int
 	a = 10
@@ -82,7 +88,13 @@ func main() {
 }
 
 func getType(a interface{}) {
-	switch a.(type) {
+	switch a.(type) {//type是关键字？
+	/*
+	有趣的写法  .(type)
+	理解是获取接口实例实际的类型指针，以此调用实例所有可调用的方法，包括接口方法及自有方法。
+	需要注意的是该写法必须与switch case联合使用，case中列出实现该接口的类型。
+	
+	 */
 	case int:
 		fmt.Println("the type of a is int")
 	case string:

@@ -26,7 +26,7 @@ func InsertProcedureOriented(bag *Bag, itemid int) {
 	bag.items = append(bag.items, itemid)
 }
 
-//面向过程风格
+//面向对象风格
 func (bag *Bag) InsertObjectOriented(itemid int) {
 	bag.items = append(bag.items, itemid)
 }

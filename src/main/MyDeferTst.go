@@ -9,25 +9,25 @@ defer、return、返回值三者的执行逻辑应该是：return最先执行，
 一些收尾工作；最后函数携带当前返回值退出。
 */
 func f0() int { //无名返回值
-	var a int
+	var a int //0
 	defer func() {
 		fmt.Println("in defer 1")
-		a++
+		a++ //3
 		fmt.Println(a)
 	}()
 	defer func(i int) {
 		fmt.Println("in defer 2")
-		fmt.Println(i)//0 为啥呢,也就是说函数调用的参数,他是copy的,不会引用传值
-		a++//但是函数内部可以引用传值的概念读取外部变量,理解其中差异
-		i++ //所以这个i++是局部变量,不影响a
+		fmt.Println(i) //0 为啥呢,也就是说函数调用的参数,他是copy的,不会引用传值
+		a++            //2 但是函数内部可以引用传值的概念读取外部变量,理解其中差异
+		i++            //所以这个i++是局部变量,不影响a
 
 		/*
-		所以之前有个疑点,到底能够读取外部变量和保存参数是何意,就在于此了
-		函数创造时copy,函数运行时是point
-		 */
+			所以之前有个疑点,到底能够读取外部变量和保存参数是何意,就在于此了
+			函数创造时copy,函数运行时是point
+		*/
 	}(a)
-	a++
-	return a //无名返回值感觉就是一个copy,因此defer中再不能获得返回值的地址,有名返回值则不同
+	a++      //1
+	return a //1  无名返回值感觉就是一个copy,因此defer中再不能获得返回值的地址,有名返回值则不同
 }
 func f1() (result int) { //有名返回值
 	defer func() {
@@ -41,13 +41,13 @@ func f2() (r int) {
 	t := 5
 	defer func() {
 		fmt.Println("in defer")
-		fmt.Println("before", t)
+		fmt.Println("before", t) //6
 		t = t + 5
-		fmt.Println("after", t)
+		fmt.Println("after", t) //11
 	}()
 	t++
 	fmt.Println("during defer and return")
-	return t
+	return t //6
 }
 
 func f3() (t int) {
@@ -56,14 +56,14 @@ func f3() (t int) {
 		fmt.Println("in defer")
 		t = t + 5
 	}()
-	return t
+	return t //10
 }
 func f4() (r int) {
 	defer func(r int) {
-		fmt.Println("in defer")
+		fmt.Println("in defer f4")
 		r = r + 5
 	}(r)
-	return 1
+	return 1 //1 哈哈 这里为啥是1而不是6呢,因为defer里面定义了形参r,所以函数内的r不是引用而是copy
 }
 
 func f5() {
