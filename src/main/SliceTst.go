@@ -67,6 +67,13 @@ func main() {
 		numbers = append(numbers, i)
 		fmt.Printf("len: %d  cap: %d pointer: %p\n", len(numbers), cap(numbers), numbers)
 	}
+	s:=[]int{1,2,3,4}//初始化 len 和cap 是一样大小的
+	fmt.Println(cap(s), len(s))
+	s= append(s, 5)
+	fmt.Println(cap(s), len(s))
+	//fmt.Println(s[6])//panic: runtime error: index out of range [6] with length 5
+	fmt.Println(s[:6])//正常运行
+
 
 	var aa1 = []int{1, 2, 3}
 	aa1 = append([]int{0}, aa1...)          // 在开头添加1个元素
