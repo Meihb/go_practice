@@ -122,4 +122,21 @@ func main() {
 	v.SetFloat(7.1)
 	fmt.Println(v.Interface())
 	fmt.Println(x)
+
+	/*
+	反射规则可以总结为如下几条：
+	反射可以将“接口类型变量”转换为“反射类型对象”；
+	反射可以将“反射类型对象”转换为“接口类型变量”；
+	如果要修改“反射类型对象”，其值必须是“可写的”。
+	 */
+	type T struct {
+		A int
+		B string
+	}
+	t := T{23, "skidoo"}
+	s := reflect.ValueOf(&t).Elem()
+	fmt.Println(s.NumField())
+	s.Field(0).SetInt(77)
+	s.Field(1).SetString("Sunset Strip")
+	fmt.Println("t is now", t)
 }
