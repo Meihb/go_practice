@@ -26,4 +26,6 @@ func main() {
 	//另外此标签如果之前的代码不退出的话是会被执行的
 breakHere:
 	fmt.Println("done")
+
+
 }
