@@ -129,7 +129,7 @@ func main() {
 		f, isFlyer := obj.(Flyer)
 		// 判断对象是否为行走动物
 		w, isWalker := obj.(Walker)
-		fmt.Printf("name: %s isFlyer: %v isWalker: %v\n", name, isFlyer, isWalker)
+		fmt.Printf("name: %s isFlyer: %v,addr:%p, isWalker: %v addr:%p\n", name, isFlyer,f, isWalker,w)
 		// 如果是飞行动物则调用飞行动物接口
 		if isFlyer {
 			f.Fly()

@@ -93,7 +93,7 @@ func getType(a interface{}) {
 	有趣的写法  .(type)
 	理解是获取接口实例实际的类型指针，以此调用实例所有可调用的方法，包括接口方法及自有方法。
 	需要注意的是该写法必须与switch case联合使用，case中列出实现该接口的类型。
-	
+
 	 */
 	case int:
 		fmt.Println("the type of a is int")

@@ -5,12 +5,12 @@ import (
 	"fmt"
 )
 
-var skillParam = flag.String("skill", "", "skill to perform")
+var skillParam = flag.String("skill", "fly", "skill to perform")
 
 func main() {
 
 	/*
-		申明时即可调用,thats the suspicious ()after the body
+	申明时即可调用,thats the suspicious ()after the body
 		或者复制给变量,从而调用
 	*/
 	func(data int) {
@@ -21,6 +21,7 @@ func main() {
 	f(120)
 
 	flag.Parse()
+	fmt.Println(skillParam)
 
 	var skill = map[string]func(){
 		"fire": func() {
