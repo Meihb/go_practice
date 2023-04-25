@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	var a [3]int = [3]int{1, 2, 3} //居然初始化的时候不可以跨行,这一点要注意,go好多这个要点
@@ -16,6 +18,7 @@ func main() {
 			两者同时为 0 时，等效于空切片，一般用于切片复位。
 
 		要注意结束为止缺省时和len-1是不同的,缺少了连续内存的最后一个索引
+		capacity 一般是 slice的初始位置到底层数组的结尾位置的长度
 	*/
 	fmt.Println(a, a[1:2])
 	fmt.Println(a, a[1:1]) //空切片
@@ -45,6 +48,20 @@ func main() {
 	fmt.Println(strList == nil, numList == nil, numListEmpty == nil)
 
 	/*
+		好奇如果一个slice,append之后是否会修改其底层数组
+	*/
+	fmt.Println("here is my slice test")
+	var months [13]string = [13]string{1: "January", 2: "February", 3: "March", 4: "April", 5: "May", 6: "June", 7: "July", 8: "August", 9: "September", 10: "October", 11: "November", 12: "December"}
+	fmt.Println(months)
+	slice1 := months[2:5]
+	slice2 := months[1:8]
+	fmt.Println(slice1)
+	slice1 = append(slice1, "April01")
+	fmt.Println(slice1)
+	fmt.Println(slice2)
+	fmt.Println(months) //事实证明 基本数组也被修改了
+	fmt.Println(slice2) //slice 只是个引用而已
+	/*
 		make([]Type,size,cap)
 		capacity 容量 只是能提前分配空间，降低多次分配空间造成的性能问题
 	*/
@@ -67,13 +84,12 @@ func main() {
 		numbers = append(numbers, i)
 		fmt.Printf("len: %d  cap: %d pointer: %p\n", len(numbers), cap(numbers), numbers)
 	}
-	s:=[]int{1,2,3,4}//初始化 len 和cap 是一样大小的
+	s := []int{1, 2, 3, 4} //初始化 len 和cap 是一样大小的
 	fmt.Println(cap(s), len(s))
-	s= append(s, 5)
+	s = append(s, 5)
 	fmt.Println(cap(s), len(s))
 	//fmt.Println(s[6])//panic: runtime error: index out of range [6] with length 5
-	fmt.Println(s[:6])//正常运行
-
+	fmt.Println(s[:6]) //正常运行
 
 	var aa1 = []int{1, 2, 3}
 	aa1 = append([]int{0}, aa1...)          // 在开头添加1个元素
