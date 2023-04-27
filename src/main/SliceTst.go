@@ -27,7 +27,7 @@ func main() {
 	fmt.Println(a, a[:])
 	//fmt.Println(a,a[1:0]); must be low <=high
 
-	/*
+	/*                                         
 		直接声明切片
 		注意和数组的区别,当var name []Type为切片,var name[number]Type或者var name[...]Type={...}这样为数组,简单的观察下来
 		没有Number并且不指定为...则为切片,宣告了其自动扩展性
