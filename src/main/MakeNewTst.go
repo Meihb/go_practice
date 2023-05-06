@@ -29,16 +29,16 @@ func main() {
 	/*
 			但是遇到指针会有问题
 			打印的分别是p自身的存储地址、p存储的目标指针地址、p目标指针地址存储的内容
-			如果不使用p=new(int),guess what happeds after var p*int,即使说申明一个int指针类型p,那么由于没有显示初始化,p=nil
+			如果不使用p=new(int),guess what happends after var p*int,即使说申明一个int指针类型p,那么由于没有显示初始化,p=nil
 			这代表p指向的是一个nil，nil代表着系统还没有被分配地址,因此如果屏蔽此句就会报错,new语句则为覆盖了其Nil值为一个被分
 			配过的内存地址,那就代表着*p的确能访问
 			invalid memory address or nil pointer dereference
 		不同类型的nil起始他们的地址都是一样的,但是不能进行==计算
 	*/
 	var p *int
-	p = new(int)
+	p = new(int)//runtime error: invalid memory address or nil pointer dereference ;var 好像并没有创建内存呀
 	*p = 2
-	fmt.Printf("p address:%p,p pointer:%p,p value:%d\n", &p, p, *p)
+	fmt.Printf("p address:%p,p pointer:%p,p value:%d\n", &p, p, *p)//p address:0xc0000ba020,p pointer:0xc0000b6018,p value:2
 
 	type makeP struct {
 		name string
