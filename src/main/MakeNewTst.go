@@ -58,7 +58,8 @@ func main() {
 	//p22["name"] = "Kalan" // panic: assignment to entry in nil map
 
 	var ma *(*makeP)
-	ma = new(*makeP)
+	ma = new(*makeP)//如果注释该行,将会报错 panic: runtime error: invalid memory address or nil pointer dereference 所以new 也分配了内存,申明变量并不能分配内存
 	*ma = &makeP{};
 	fmt.Println(*ma)
+	fmt.Println(ma)
 }

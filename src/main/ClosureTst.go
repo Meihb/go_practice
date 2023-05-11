@@ -38,15 +38,16 @@ func main() {
 	*/
 	str := "hello world"
 	foo := func() {
-		fmt.Println(str)
+		fmt.Println(str)//hello world2
 		//匿名函数中访问str
 		str = "hello dude"
+		fmt.Println(str)//hello dude
 	}
 	str = "hello world2"
 	//调用匿名函数
 	foo()
 
-	println(str)
+	println(str)//hello dude
 
 	//创建一个累加器,初始值为1
 	accumulator := Accumulate(1)
