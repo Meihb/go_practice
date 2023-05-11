@@ -5,8 +5,8 @@ import (
 )
 
 func main() {
-	var a [3]int = [3]int{1, 2, 3} //居然初始化的时候不可以跨行,这一点要注意,go好多这个要点
-
+	var a [3]int = [3]int{1, 2, 3} //居然初始化的时候不可以跨行,这一点要注意,go好多这个要点 并不是不可以跨行,切记go自动帮你在换行时候加了个什么符号,thus }真的不可以换行,有好多情况要看下
+	fmt.Println(a)
 	//切片运算,左闭右开
 	/*
 			从数组或切片生成新的切片拥有如下特性：
@@ -27,7 +27,7 @@ func main() {
 	fmt.Println(a, a[:])
 	//fmt.Println(a,a[1:0]); must be low <=high
 
-	/*                                         
+	/*
 		直接声明切片
 		注意和数组的区别,当var name []Type为切片,var name[number]Type或者var name[...]Type={...}这样为数组,简单的观察下来
 		没有Number并且不指定为...则为切片,宣告了其自动扩展性
